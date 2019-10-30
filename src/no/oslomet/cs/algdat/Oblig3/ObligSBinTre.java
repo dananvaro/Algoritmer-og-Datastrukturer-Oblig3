@@ -50,7 +50,7 @@ public class ObligSBinTre<T> implements Beholder<T>
   {
     // Skjekker om verdien er lik null
     Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
-
+    
     // Lager noder av type Node der p er roten
     Node<T> p = rot;
     Node<T> q = null;
