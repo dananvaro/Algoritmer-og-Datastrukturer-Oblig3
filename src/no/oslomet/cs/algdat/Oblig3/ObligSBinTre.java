@@ -2,9 +2,10 @@ package no.oslomet.cs.algdat.Oblig3;
 
 ////////////////// ObligSBinTre /////////////////////////////////
 
-import com.sun.xml.internal.bind.v2.TODO;
-
-import java.util.*;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.StringJoiner;
 
 public class ObligSBinTre<T> implements Beholder<T>
 {
@@ -151,13 +152,33 @@ public class ObligSBinTre<T> implements Beholder<T>
 
   private static <T> Node<T> nesteInorden(Node<T> p)
   {
-    throw new UnsupportedOperationException("Ikke kodet ennå!");
+    if (p.høyre != null){
+      p = p.høyre;
+      while (p.venstre != null){
+        p = p.venstre;
+      }
+    }
+    else {
+      while (p.forelder != null && p == p.forelder.høyre){
+        p = p.forelder;
+      }
+      p = p.forelder;
+    }
+    return p;
   }
 
   @Override
   public String toString()
   {
-    throw new UnsupportedOperationException("Ikke kodet ennå!");
+    if (tom()) return "[]";
+    StringJoiner s = new StringJoiner(", ", "[", "]");
+    Node<T> p = rot;
+    while (p.venstre != null) p = p.venstre;
+    while (p != null) {
+      s.add(p.verdi.toString());
+      p = nesteInorden(p);
+    }
+    return s.toString();
   }
 
   public String omvendtString()
