@@ -76,7 +76,7 @@ public class ObligSBinTre<T> implements Beholder<T>
     }
 
     //Lager en ny metode og setter den lik p
-    p = new Node<T>(verdi,p);
+    p = new Node<T>(verdi,q);
 
     //Om q er lik null er p lik rot
     if (q == null){
