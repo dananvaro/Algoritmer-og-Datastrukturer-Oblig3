@@ -6,6 +6,7 @@ import java.util.*;
 
 public class ObligSBinTre<T> implements Beholder<T>
 {
+  //test
   private static final class Node<T>   // en indre nodeklasse
   {
     private T verdi;                   // nodens verdi
