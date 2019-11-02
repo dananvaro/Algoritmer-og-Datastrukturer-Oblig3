@@ -166,6 +166,7 @@ public class ObligSBinTre<T> implements Beholder<T>
         return p;
     }
 
+
     @Override
     public String toString()
     {
@@ -183,7 +184,24 @@ public class ObligSBinTre<T> implements Beholder<T>
 
     public String omvendtString()
     {
-    throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if(tom()) return "[]";
+        Node<T> p = rot;
+        StringJoiner l = new StringJoiner(", ","[","]");
+        ArrayDeque stakk = new ArrayDeque();
+        while(p.venstre != null){
+            p=p.venstre;
+        }
+        while(p != null){
+            stakk.addFirst(p.verdi);
+            p = nesteInorden(p);
+
+        }
+        for(Object c : stakk){
+            l.add(stakk.pop().toString());
+        }
+
+        return  l.toString();
+
     }
 
     public String høyreGren()
