@@ -409,7 +409,7 @@ public class ObligSBinTre<T> implements Beholder<T>
         else {
 
             //Om venstre og hoyre node er lik null vet vi at det er bladnoden og da legger vi i Stringbuilder
-            if(node.venstre==null && node.høyre==null){
+            if(node.venstre==null && node.hreøyre==null){
                 ut.append(node+", ");
             }
 
