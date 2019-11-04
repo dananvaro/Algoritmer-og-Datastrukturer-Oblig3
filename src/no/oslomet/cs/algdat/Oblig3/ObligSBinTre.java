@@ -369,7 +369,42 @@ public class ObligSBinTre<T> implements Beholder<T>
 
     public String lengstGren()
     {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        //dersom vi ikke hr noen verdier
+        if (antall == 0) {
+            return "[]";
+        }
+        //bruker tabeilListe klassen for å finne lengste noden.
+        TabellListe ko = new TabellListe();
+        Node lengsteGren = rot;
+        //legger til roten
+        ko.leggInn(lengsteGren);
+        //løkken vil gi
+        while (!ko.tom()) {
+            lengsteGren = (Node) ko.hent(0);
+            ko.fjern(ko.fjern(0));
+            if (lengsteGren.høyre != null) {
+                ko.leggInn(lengsteGren.høyre);
+            }
+            if (lengsteGren.venstre != null) {
+                ko.leggInn(lengsteGren.venstre);
+            }
+        }
+
+        Node q = rot;
+        StringBuilder ut = new StringBuilder();
+        ut.append("[" + rot);
+        //finner veien til lengstegren
+        while (q != lengsteGren) {
+            int cmp = comp.compare((T) lengsteGren.verdi, (T) q.verdi);      // sammenligner
+            if (cmp < 0) {
+                q = q.venstre;
+            } else {
+                q = q.høyre;
+            }
+            ut.append(", " + q.verdi);
+        }
+        ut.append("]");
+        return ut.toString();
     }
 
     public String[] grener()
@@ -409,7 +444,7 @@ public class ObligSBinTre<T> implements Beholder<T>
         else {
 
             //Om venstre og hoyre node er lik null vet vi at det er bladnoden og da legger vi i Stringbuilder
-            if(node.venstre==null && node.hreøyre==null){
+            if(node.venstre==null && node.høyre==null){
                 ut.append(node+", ");
             }
 
