@@ -154,7 +154,6 @@ public class ObligSBinTre<T> implements Beholder<T>
             }
             //dersom det er rot så kommer vi inn her
             if (p == rot){
-                System.out.println("i roten her");
                 if(p.høyre==null && p.venstre==null){
                     rot = null;
                 }else {
@@ -307,6 +306,7 @@ public class ObligSBinTre<T> implements Beholder<T>
     @Override
     public String toString()
     {
+
         if (tom()) return "[]";
         StringJoiner s = new StringJoiner(", ", "[", "]");
         Node<T> p = rot;
@@ -379,12 +379,101 @@ public class ObligSBinTre<T> implements Beholder<T>
 
     public String bladnodeverdier()
     {
-    throw new UnsupportedOperationException("Ikke kodet ennå!");
+        //Skjekker om treet er tomt
+        if(antall==0){
+            return "[]";
+        }
+
+        //Lager en stringbuilder
+        StringBuilder ut = new StringBuilder();
+        ut.append("[");
+
+        //Kaller hjelpmetoden
+        hjelpemetode(rot, ut);
+
+        //Fjerner siste komma sa vi ikke slutter med en komma
+        ut.replace(ut.length()-2,ut.length(),"");
+        ut.append("]");
+
+        //Returnerer bladverdiene
+        return ut.toString();
+    }
+
+    public String hjelpemetode(Node node, StringBuilder ut){
+
+        //Skjekker om noden er lik null
+        if (node == null) {
+            return ut.toString();
+        }
+
+        else {
+
+            //Om venstre og hoyre node er lik null vet vi at det er bladnoden og da legger vi i Stringbuilder
+            if(node.venstre==null && node.høyre==null){
+                ut.append(node+", ");
+            }
+
+            //Rekrusivt kall
+            hjelpemetode(node.venstre, ut);
+            hjelpemetode(node.høyre,ut);
+        }
+
+        //Returnerer bladnodene
+        return ut.toString();
     }
 
     public String postString()
     {
-    throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        //Skjekker om treet er tomt
+        if(tom()) {
+            throw new NoSuchElementException("Tomt tree");
+        }
+
+        //Lager en stringbuilder som legger til verdiene
+        StringBuffer sbf = new StringBuffer("[");
+
+        //Lager to stacks som brukers til å ta ut og legge inn noder
+        TabellStakk stakk1 = new TabellStakk();
+        TabellStakk stakk2 = new TabellStakk();
+
+        //Lager en Node som blir satt lik stakk.taUt
+        Node p;
+
+        //Legger til rot noden inn
+        stakk1.leggInn(rot);
+
+        //While løkken kjører til første stakk er tom
+        while (!stakk1.tom()){
+
+            p = (Node)stakk1.taUt();
+
+            //Legger inn p i stakk2
+            stakk2.leggInn(p);
+
+            //Legger til barna til noden i stakk1
+            //Når barna blir lagt inn i stakk1 og while-løkken kjøres
+            // igjen blir top noden i stakk1 lagt til i stakk2
+            if(p.venstre!= null){
+                stakk1.leggInn(p.venstre);
+            }
+
+            if(p.høyre!= null){
+                stakk1.leggInn(p.høyre);
+            }
+
+        }
+
+        //Henter verdiene og legger til i en String
+        while (!stakk2.tom()){
+
+            sbf.append(stakk2.taUt() + ", ");
+        }
+
+        sbf.replace(sbf.length()-2,sbf.length(),"]");
+
+        //Returnerer treet i postorden
+        return String.valueOf(sbf);
     }
 
     @Override
