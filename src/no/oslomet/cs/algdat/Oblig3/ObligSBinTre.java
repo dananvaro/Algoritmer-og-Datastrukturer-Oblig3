@@ -2,6 +2,8 @@ package no.oslomet.cs.algdat.Oblig3;
 
 ////////////////// ObligSBinTre /////////////////////////////////
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.*;
 
 public class ObligSBinTre<T> implements Beholder<T>
@@ -116,13 +118,129 @@ public class ObligSBinTre<T> implements Beholder<T>
     }
 
     @Override
-    public boolean fjern(T verdi)
-    { throw new UnsupportedOperationException("Ikke kodet ennå!");
+    public boolean fjern(T verdi) {
+        //treet tar ike imot null verdier
+        if (verdi == null) return false;
+
+        Node<T> p = rot;
+        Node <T> q = null;
+
+        //prøver å finne verdien
+        while (p != null)
+        {
+            //sammenlikner verdiene
+            int cmp = comp.compare(verdi,p.verdi);
+            //går til venstre dersom vi får mindre enn 0
+            if (cmp < 0) { q = p; p = p.venstre; }
+            //går til venstre dersom vi får mer enn 0
+            else if (cmp > 0) { q = p; p = p.høyre; }
+            //hvis ingen av de så har vi funnet verdien
+            else break;
+        }
+        //dersom p er null så har vi ikke funnet verdien
+        if (p == null) return false;
+
+        //dersom noden har 0 eller 1 barn
+        if (p.venstre == null || p.høyre == null)
+        {
+            //b er barnet til p
+            Node b = null;
+
+            if(p.venstre!=null){
+                b = p.venstre;
+            }
+            else if(p.høyre!=null) {
+                b = p.høyre;
+            }
+            //dersom det er rot så kommer vi inn her
+            if (p == rot){
+                System.out.println("i roten her");
+                if(p.høyre==null && p.venstre==null){
+                    rot = null;
+                }else {
+                    rot = b;
+                    b.forelder = null;
+                }
+            }
+            else if (p == q.venstre){
+//                System.out.println(q.verdi + " " + b.verdi);
+                q.venstre = b;
+                p.forelder = q;
+            }
+            else {
+                if(p.høyre==null && p.venstre==null){
+                    p.forelder=null;
+                }else{
+                    b.forelder = q;
+                }
+                q.høyre = b;
+
+            }
+        }
+        //dersom noden har 2 barn
+        else {
+            //s = forelder til r , r = nesteinorden av p
+            Node<T> s = p, r = p.høyre;
+            r = nesteInorden(p);
+            s = r.forelder;
+
+
+            //kopierer verdien slik at vi kan fjerne den nederste
+            p.verdi = r.verdi;
+
+            if (s != p){
+                if(r.høyre == null){
+                    r.forelder = null;
+                }
+                else {
+                    r.høyre.forelder = s;
+                }
+                s.venstre = r.høyre;
+            }
+            else {
+                //dersom p er roten
+                if(r.forelder==rot){
+                    if(r.høyre!=null){
+                        r.høyre.forelder = r.forelder;
+                    }else {
+                        r.forelder=null;
+                    }
+                }
+                else {
+                    //flytter pekeren
+                    r.forelder = s;
+                }
+                //flytter pekeren
+                s.høyre = r.høyre;
+
+            }
+        }
+
+        //minker antall
+        antall--;
+        return true;
     }
 
     public int fjernAlle(T verdi)
     {
-    throw new UnsupportedOperationException("Ikke kodet ennå!");
+        //dersom antall lik 0
+        if (antall == 0){
+            return 0;
+        }
+        //finner antallet av en verdi
+        int stopp = antall(verdi);
+        //hjelpeverdi som teller antall fjernet
+        int antall = 0;
+        if (stopp == 0) {
+            return antall;
+        }
+        //fjerner ved hjelp av fjern metoden
+        for(int i =0; i < stopp; i++){
+            fjern(verdi);
+            antall++;
+        }
+        //returnerer antallt som ble fjernet
+        return antall;
     }
 
     @Override
@@ -131,9 +249,8 @@ public class ObligSBinTre<T> implements Beholder<T>
     return antall;
     }
 
-    public int antall(T verdi)
-    {
-    throw new UnsupportedOperationException("Ikke kodet ennå!");
+    public int antall(T verdi) {
+        throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
     @Override
@@ -144,7 +261,27 @@ public class ObligSBinTre<T> implements Beholder<T>
 
     @Override
     public void nullstill(){
-    throw new UnsupportedOperationException("Ikke kodet ennå!");
+        //dersom antall er 0
+        if(antall == 0){
+            return;
+        }
+        Node p = rot;
+        //går igjennom alle erdiene i treet
+        int stopp = antall;
+        // går til den verdien som er lengst til venstre
+        // slik at vi kan bruke nesteinorden metoden
+        while (p.venstre != null){
+            p = p.venstre;
+        }
+        while(stopp!=0){
+            //fjerner verdi
+            fjern((T)p.verdi);
+            p.verdi = null;
+            //går til neste verdi
+            p =nesteInorden(p);
+            stopp--;
+
+        }
     }
 
     private static <T> Node<T> nesteInorden(Node<T> p)
