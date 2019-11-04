@@ -179,7 +179,7 @@ public class ObligSBinTre<T> implements Beholder<T>
         }
         //dersom noden har 2 barn
         else {
-            //s = forelder til r , r = nesteinorden av p
+            //s = forelder til r og r = nesteinorden av p
             Node<T> s = p, r = p.høyre;
             r = nesteInorden(p);
             s = r.forelder;
