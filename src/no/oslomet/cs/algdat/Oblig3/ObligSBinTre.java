@@ -537,7 +537,14 @@ public class ObligSBinTre<T> implements Beholder<T>
 
     private BladnodeIterator()  // konstruktør
     {
-      throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if(tom()) return;
+
+        while(true)
+        {
+            if(p.venstre != null) p = p.venstre;
+            else if (p.høyre != null) p = p.høyre;
+            else break;
+        }
     }
 
     @Override
@@ -549,7 +556,29 @@ public class ObligSBinTre<T> implements Beholder<T>
     @Override
     public T next()
     {
-      throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        if(!hasNext())
+            throw new NoSuchElementException("Finnes ikke flere bladnoder.!");
+
+        else if (endringer != iteratorendringer)
+        {
+            throw new ConcurrentModificationException("Endringer(" + endringer + ") != iteratorendringer(" + iteratorendringer + ")");
+        }
+
+        removeOK = true;
+
+        q = p;
+        T temp = p.verdi;
+        while(hasNext())
+        {
+            p = nesteInorden(p);
+            if(p == null)
+                return temp;
+
+            if(p.venstre == null && p.høyre == null)
+                return temp;
+        }
+        return temp;
     }
 
     @Override
