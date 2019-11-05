@@ -218,6 +218,7 @@ public class ObligSBinTre<T> implements Beholder<T>
 
         //minker antall
         antall--;
+        endringer++;
         return true;
     }
 
@@ -382,7 +383,7 @@ public class ObligSBinTre<T> implements Beholder<T>
 
     public String lengstGren()
     {
-        //dersom vi ikke hr noen verdier
+        //dersom vi ikke har noen verdier
         if (antall == 0) {
             return "[]";
         }
@@ -391,9 +392,11 @@ public class ObligSBinTre<T> implements Beholder<T>
         Node lengsteGren = rot;
         //legger til roten
         ko.leggInn(lengsteGren);
-        //løkken vil gi
+        //løkken vil gi noden til den lengste noden
         while (!ko.tom()) {
+            //ser kun
             lengsteGren = (Node) ko.hent(0);
+            //fjerner noden som ligger på plass 0
             ko.fjern(ko.fjern(0));
             if (lengsteGren.høyre != null) {
                 ko.leggInn(lengsteGren.høyre);
@@ -403,12 +406,15 @@ public class ObligSBinTre<T> implements Beholder<T>
             }
         }
 
+        //bruker denne for å finne noden lengstegren
         Node q = rot;
         StringBuilder ut = new StringBuilder();
         ut.append("[" + rot);
         //finner veien til lengstegren
         while (q != lengsteGren) {
-            int cmp = comp.compare((T) lengsteGren.verdi, (T) q.verdi);      // sammenligner
+            //kun en måte å komme til den valgte noden så vi sammenlikner
+            // og setter inn i stringbuilderen
+            int cmp = comp.compare((T) lengsteGren.verdi, (T) q.verdi);
             if (cmp < 0) {
                 q = q.venstre;
             } else {
