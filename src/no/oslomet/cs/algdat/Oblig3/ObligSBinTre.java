@@ -94,8 +94,9 @@ public class ObligSBinTre<T> implements Beholder<T>
             q.høyre = p;
         }
 
-        //Plusser antall
+        //Plusser antall og endringer
         antall++;
+        endringer++;
         return true;
     }
 
@@ -474,7 +475,7 @@ public class ObligSBinTre<T> implements Beholder<T>
 
         //Skjekker om treet er tomt
         if(tom()) {
-            throw new NoSuchElementException("Tomt tree");
+            return "[]";
         }
 
         //Lager en stringbuilder som legger til verdiene
