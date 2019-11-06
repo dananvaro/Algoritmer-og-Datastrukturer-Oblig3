@@ -2,14 +2,17 @@
 
 Denne oppgaven er en innlevering i Algoritmer og Datastrukturer. 
 Oppgaven er levert av følgende studenter:
-* Navn Navnesen, S981737, s981737@oslomet.no
-* ...
+Jawid Mohammadi, S315591, s315591@oslomet.no
+Rahmat Faribarz, s235799, s235799@oslomet.no
+Danan Subramaniam, S321422, s321422@oslomet.no
+Hajhain Nirmalan, S331425, s331425@oslomet.no
+Mohamed Yusuf Nur, S333725, s333725@oslomet.no
+Arbeidsfordeling
 
 # Arbeidsfordeling
-
-I oppgaven har vi hatt følgende arbeidsfordeling:
-* Per har hatt hovedansvar for oppgave 1, 3, og 5. 
-* Else har hatt hovedansvar for oppgave 2, 4, og 6. 
-* Fatima har hatt hovedansvar for oppgave 7 og 8. 
-* Vi har i fellesskap løst oppgave 10. 
+Jawid Mohammadi: Hovedansvar for 
+Rahmat Faribarz: Hovedansvar for 
+Danan Subramaniam: Hovedansvar for 1, 8
+Hajhain Nirmalan: Hovedansvar for 5, 6
+Mohamed Yusuf Nur: Hovedansvar for 
 
