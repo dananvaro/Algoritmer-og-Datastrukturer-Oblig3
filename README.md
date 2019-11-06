@@ -10,9 +10,9 @@ Oppgaven er levert av følgende studenter:
 * Mohamed Yusuf Nur, S333725, s333725@oslomet.no
 
 # Arbeidsfordeling
-* Jawid Mohammadi: Hovedansvar for 
-* Rahmat Faribarz: Hovedansvar for 
+* Jawid Mohammadi: Hovedansvar for 3, 10
+* Rahmat Faribarz: Hovedansvar for 2, 9
 * Danan Subramaniam: Hovedansvar for 1, 8
 * Hajhain Nirmalan: Hovedansvar for 5, 6
-* Mohamed Yusuf Nur: Hovedansvar for 
+* Mohamed Yusuf Nur: Hovedansvar for 4, 7
 
