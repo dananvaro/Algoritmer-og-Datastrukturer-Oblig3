@@ -338,15 +338,15 @@ public class ObligSBinTre<T> implements Beholder<T>
         if(tom())return "[]";
 
         Node<T> n = rot;
-        ArrayDeque<Node<T>> stakk = new ArrayDeque<>();
+        ArrayDeque<Node<T>> K = new ArrayDeque<>();
         StringJoiner l = new StringJoiner(", ", "[", "]");
 
-        while(n!= null || stakk.size()>0){
+        while(n!= null || K.size()>0){
            while(n != null){
-               stakk.addFirst(n);
+               K.addFirst(n);
                n = n.høyre;
            }
-           n = stakk.pop();
+           n = K.pop();
            l.add(n.verdi.toString());
            n = n.venstre;
         }
@@ -428,8 +428,27 @@ public class ObligSBinTre<T> implements Beholder<T>
 
     public String[] grener()
     {
-    throw new UnsupportedOperationException("Ikke kodet ennå!");
+        List<String> liste = new ArrayList<>();
+        ArrayDeque<T> gren = new ArrayDeque<>();
+        if(!tom())
+            grener(rot, liste, gren);
+
+        String s[] = new String[liste.size()];
+        s = liste.toArray(s);
+        return s;
     }
+
+    //Hjelpemetode til  grener()
+    private static <T> void grener(Node<T> p, List<String> liste, ArrayDeque<T> gren){
+        gren.addLast(p.verdi);
+
+        if(p.venstre != null) grener(p.venstre,liste,gren);
+        if(p.høyre!= null) grener(p.høyre, liste, gren);
+        if(p.høyre == null && p.venstre == null) liste.add(gren.toString());
+
+        gren.removeLast();
+    }
+
 
     public String bladnodeverdier()
     {
